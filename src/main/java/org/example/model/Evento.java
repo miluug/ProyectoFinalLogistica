@@ -16,7 +16,7 @@ public class Evento {
     //Asociación
     private Recinto recinto;
 
-    public Evento(String idEvento, String nombre, Categoria categoria, String descripcion, String ciudad, LocalDateTime fechaHora, EstadoEvento estado, String politicas, Recinto recinto) {
+    public Evento(String idEvento, String nombre, Categoria categoria, String descripcion, String ciudad, LocalDateTime fechaHora, EstadoEvento estado, String politicas) {
         this.idEvento = idEvento;
         this.nombre = nombre;
         this.categoria = categoria;
@@ -25,8 +25,8 @@ public class Evento {
         this.fechaHora = fechaHora;
         this.estado = estado;
         this.politicas = politicas;
-        this.recinto = recinto;
     }
+
 
     public String getIdEvento() {
         return idEvento;
@@ -96,7 +96,7 @@ public class Evento {
         return recinto;
     }
 
-    public void setRecinto(Recinto recinto) {
+    public void asignarRecinto(Recinto recinto) {
         this.recinto = recinto;
     }
 }
