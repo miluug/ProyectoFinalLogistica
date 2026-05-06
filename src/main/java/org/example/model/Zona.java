@@ -1,20 +1,48 @@
 package org.example.model;
 
+import java.util.LinkedList;
+
 public class Zona {
 
     private String idZona;
     private String nombre;
     private TipoZona tipoZona;
-    private int capacidad;
     private double precioBase;
+    private boolean numerado;
 
-        public Zona(String idZona, String nombre, TipoZona tipoZona, int capacidad, double precioBase) {
+    //Para general
+    private int capacidad;
+
+    //Para numerado
+    private LinkedList <Asiento> asientos;
+
+
+    public Zona(String idZona, String nombre, TipoZona tipoZona, int capacidad, double precioBase, boolean numerado ) {
             this.idZona = idZona;
             this.nombre = nombre;
             this.tipoZona = tipoZona;
             this.capacidad = capacidad;
             this.precioBase = precioBase;
+            this.numerado = numerado;
+            asientos = new LinkedList<>();
+
         }
+
+    public boolean isNumerado() {
+        return numerado;
+    }
+
+    public void setNumerado(boolean numerado) {
+        this.numerado = numerado;
+    }
+
+    public LinkedList<Asiento> getAsientos() {
+        return asientos;
+    }
+
+    public void setAsientos(LinkedList<Asiento> asientos) {
+        this.asientos = asientos;
+    }
 
     public String getIdZona() {
         return idZona;
