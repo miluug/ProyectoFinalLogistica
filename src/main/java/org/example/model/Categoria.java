@@ -2,6 +2,6 @@ package org.example.model;
 
 public enum Categoria {
     CONCIERTO,
-    TEATRO,
+    OBRA_TEATRO,
     CONFERENCIA
 }
