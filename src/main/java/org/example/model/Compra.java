@@ -1,5 +1,7 @@
 package org.example.model;
 
+
+
 public class Compra implements ICompra {
 
     private double totalBase;
