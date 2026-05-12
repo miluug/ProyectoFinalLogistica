@@ -3,22 +3,21 @@ import java.time.LocalDate;
 
 public class Incidencia {
 
-    private String          idIncidencia;
-    private String          tipo;
-    private String          descripcion;
-    private LocalDate       fecha;
+    private String idIncidencia;
+    private String tipo;
+    private String descripcion;
+    private LocalDate fecha;
     private EntidadAfectada entidadAfectada;
 
-    public Incidencia() {}
-
-    public Incidencia(String idIncidencia, String tipo, String descripcion,
-                      LocalDate fecha, EntidadAfectada entidadAfectada) {
-        this.idIncidencia    = idIncidencia;
-        this.tipo            = tipo;
-        this.descripcion     = descripcion;
-        this.fecha           = fecha;
+    public Incidencia(String idIncidencia, String tipo, String descripcion, LocalDate fecha, EntidadAfectada entidadAfectada) {
+        this.idIncidencia = idIncidencia;
+        this.tipo = tipo;
+        this.descripcion = descripcion;
+        this.fecha = fecha;
         this.entidadAfectada = entidadAfectada;
     }
+
+    //Getters y Setters
 
     public String getIdIncidencia() {
         return idIncidencia;

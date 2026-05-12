@@ -1,5 +1,4 @@
 package org.example.model;
-
 import java.util.LinkedList;
 
 public  class Usuario extends Persona {
@@ -16,6 +15,8 @@ public  class Usuario extends Persona {
         this.telefono = telefono;
         this.listMetodosPago = new LinkedList<>();
     }
+
+    //Getters y Setters
 
     public String getNombreCompleto() {
         return nombreCompleto;

@@ -1,5 +1,4 @@
 package org.example.model;
-
 import java.time.LocalDateTime;
 
 public class Concierto extends Evento {
@@ -11,6 +10,8 @@ public class Concierto extends Evento {
         this.artista = artista;
         this.generoMusical = generoMusical;
     }
+
+    //Getters y Setters
 
     public String getArtista() {
         return artista;

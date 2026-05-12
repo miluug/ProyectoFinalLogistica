@@ -10,6 +10,9 @@ public abstract class Persona {
         this.contrasena = contrasena;
     }
 
+    //Getters y Setters
+
+
     public String getUsuario() {
         return usuario;
     }

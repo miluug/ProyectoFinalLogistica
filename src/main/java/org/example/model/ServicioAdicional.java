@@ -17,4 +17,12 @@ public abstract class ServicioAdicional implements ICompra {
     public String getDescripcion(){
         return compra.getDescripcion();
     }
+
+    public ICompra getCompra() {
+        return compra;
+    }
+
+    public void setCompra(ICompra compra) {
+        this.compra = compra;
+    }
 }

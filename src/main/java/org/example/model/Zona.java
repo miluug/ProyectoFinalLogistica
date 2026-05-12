@@ -1,5 +1,4 @@
 package org.example.model;
-
 import java.util.LinkedList;
 
 public class Zona {
@@ -27,22 +26,7 @@ public class Zona {
             asientos = new LinkedList<>();
 
         }
-
-    public boolean isNumerado() {
-        return numerado;
-    }
-
-    public void setNumerado(boolean numerado) {
-        this.numerado = numerado;
-    }
-
-    public LinkedList<Asiento> getAsientos() {
-        return asientos;
-    }
-
-    public void setAsientos(LinkedList<Asiento> asientos) {
-        this.asientos = asientos;
-    }
+    //Getters y Setters
 
     public String getIdZona() {
         return idZona;
@@ -68,6 +52,22 @@ public class Zona {
         this.tipoZona = tipoZona;
     }
 
+    public double getPrecioBase() {
+        return precioBase;
+    }
+
+    public void setPrecioBase(double precioBase) {
+        this.precioBase = precioBase;
+    }
+
+    public boolean isNumerado() {
+        return numerado;
+    }
+
+    public void setNumerado(boolean numerado) {
+        this.numerado = numerado;
+    }
+
     public int getCapacidad() {
         return capacidad;
     }
@@ -76,11 +76,11 @@ public class Zona {
         this.capacidad = capacidad;
     }
 
-    public double getPrecioBase() {
-        return precioBase;
+    public LinkedList<Asiento> getAsientos() {
+        return asientos;
     }
 
-    public void setPrecioBase(double precioBase) {
-        this.precioBase = precioBase;
+    public void setAsientos(LinkedList<Asiento> asientos) {
+        this.asientos = asientos;
     }
 }

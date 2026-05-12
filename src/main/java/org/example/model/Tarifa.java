@@ -1,43 +1,46 @@
 package org.example.model;
 
-
 public class Tarifa {
 
-    private String idTarifa;
-    private String nombre;
-    private double valor;
+    private double precioBase;
+    private double porcentajeImpuesto;
+    private double comisionServicio;
 
-    public Tarifa() {
+
+    public Tarifa(double precioBase, double porcentajeImpuesto, double comisionServicio) {
+        this.precioBase = precioBase;
+        this.porcentajeImpuesto = porcentajeImpuesto;
+        this.comisionServicio = comisionServicio;
     }
 
-    public Tarifa(String idTarifa, String nombre, double valor) {
-        this.idTarifa = idTarifa;
-        this.nombre = nombre;
-        this.valor = valor;
+    public double calcularTotal(double totalBase) {
+        return totalBase + (totalBase * porcentajeImpuesto / 100) + comisionServicio;
     }
 
-    public String getIdTarifa() {
-        return idTarifa;
+    //Getters y Setters
+
+    public double getPrecioBase() {
+        return precioBase;
     }
 
-    public void setIdTarifa(String idTarifa) {
-        this.idTarifa = idTarifa;
+    public void setPrecioBase(double precioBase) {
+        this.precioBase = precioBase;
     }
 
-    public String getNombre() {
-        return nombre;
+    public double getPorcentajeImpuesto() {
+        return porcentajeImpuesto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setPorcentajeImpuesto(double porcentajeImpuesto) {
+        this.porcentajeImpuesto = porcentajeImpuesto;
     }
 
-    public double getValor() {
-        return valor;
+    public double getComisionServicio() {
+        return comisionServicio;
     }
 
-    public void setValor(double valor) {
-        this.valor = valor;
+    public void setComisionServicio(double comisionServicio) {
+        this.comisionServicio = comisionServicio;
     }
 }
 

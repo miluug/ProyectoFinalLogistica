@@ -1,5 +1,4 @@
 package org.example.model;
-
 import java.time.LocalDateTime;
 
 public class ObraTeatro extends Evento {
@@ -12,6 +11,8 @@ public class ObraTeatro extends Evento {
         this.director = director;
         this.genero = genero;
     }
+
+    //Getters y Setters
 
     public String getDirector() {
         return director;

@@ -1,5 +1,4 @@
 package org.example.model;
-
 import java.time.LocalDateTime;
 
 public abstract class Evento {
@@ -27,6 +26,7 @@ public abstract class Evento {
         this.politicas = politicas;
     }
 
+    //Getters y Setters
 
     public String getIdEvento() {
         return idEvento;
@@ -96,7 +96,7 @@ public abstract class Evento {
         return recinto;
     }
 
-    public void asignarRecinto(Recinto recinto) {
+    public void setRecinto(Recinto recinto) {
         this.recinto = recinto;
     }
 }

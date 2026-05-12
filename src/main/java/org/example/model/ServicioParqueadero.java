@@ -13,6 +13,6 @@ public class ServicioParqueadero extends ServicioAdicional {
 
     @Override
     public String getDescripcion() {
-        return compra.getDescripcion() + " + Parqueadero";
+        return compra.getDescripcion() + "\nServicio adicional:" + "\n - Merchandising";
     }
 }

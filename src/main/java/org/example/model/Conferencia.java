@@ -1,5 +1,4 @@
 package org.example.model;
-
 import java.time.LocalDateTime;
 
 public class Conferencia extends Evento {
@@ -11,6 +10,8 @@ public class Conferencia extends Evento {
         this.ponente = ponente;
         this.tematica = tematica;
     }
+
+    //Getters y Setters
 
     public String getPonente() {
         return ponente;
