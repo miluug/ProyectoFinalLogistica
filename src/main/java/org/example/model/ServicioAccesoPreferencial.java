@@ -13,6 +13,6 @@ public class ServicioAccesoPreferencial extends ServicioAdicional {
 
     @Override
     public String getDescripcion() {
-        return compra.getDescripcion() + " + Acceso Preferencial";
+        return compra.getDescripcion() + "\nServicio adicional:" + "\n - Acceso Preferencial";
     }
 }

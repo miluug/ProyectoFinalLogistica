@@ -11,8 +11,8 @@ public class ServicioVIP extends ServicioAdicional {
             return compra.getTotal() + 50000;
         }
 
-        @Override
-        public String getDescripcion() {
-            return compra.getDescripcion() + " + VIP";
-        }
+    @Override
+    public String getDescripcion() {
+        return compra.getDescripcion() + "\nServicio adicional:" + "\n - VIP";
+    }
 }

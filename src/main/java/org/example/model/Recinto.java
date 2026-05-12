@@ -1,5 +1,4 @@
 package org.example.model;
-
 import java.util.LinkedList;
 
 public class Recinto {
@@ -8,15 +7,17 @@ public class Recinto {
     private String nombre;
     private String direccion;
     private String ciudad;
-    private LinkedList <Zona> zonas;
+    private LinkedList<Zona> zonas;
 
-        public Recinto(String idRecinto, String nombre, String direccion, String ciudad) {
-            this.idRecinto = idRecinto;
-            this.nombre = nombre;
-            this.direccion = direccion;
-            this.ciudad = ciudad;
-            this.zonas = new LinkedList<>();
-        }
+    public Recinto(String idRecinto, String nombre, String direccion, String ciudad) {
+        this.idRecinto = idRecinto;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.ciudad = ciudad;
+        this.zonas = new LinkedList<>();
+    }
+
+    //Getters y Setters
 
     public String getIdRecinto() {
         return idRecinto;

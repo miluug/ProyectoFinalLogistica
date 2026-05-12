@@ -13,6 +13,6 @@ public class ServicioSeguro extends ServicioAdicional {
 
     @Override
     public String getDescripcion() {
-        return compra.getDescripcion() + " + Seguro";
+        return compra.getDescripcion() + "\nServicio adicional:" + "\n - Seguro";
     }
 }

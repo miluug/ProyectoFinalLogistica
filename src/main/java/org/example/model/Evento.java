@@ -1,20 +1,19 @@
 package org.example.model;
-
 import java.time.LocalDateTime;
 
-public class Evento {
+public abstract class Evento {
 
-    private String idEvento;
-    private String nombre;
-    private Categoria categoria;
-    private String descripcion;
-    private String ciudad;
-    private LocalDateTime fechaHora;
-    private EstadoEvento estado;
-    private String politicas;
+    protected String idEvento;
+    protected String nombre;
+    protected Categoria categoria;
+    protected String descripcion;
+    protected String ciudad;
+    protected LocalDateTime fechaHora;
+    protected EstadoEvento estado;
+    protected String politicas;
 
     //Asociación
-    private Recinto recinto;
+    protected Recinto recinto;
 
     public Evento(String idEvento, String nombre, Categoria categoria, String descripcion, String ciudad, LocalDateTime fechaHora, EstadoEvento estado, String politicas) {
         this.idEvento = idEvento;
@@ -27,6 +26,7 @@ public class Evento {
         this.politicas = politicas;
     }
 
+    //Getters y Setters
 
     public String getIdEvento() {
         return idEvento;
@@ -96,7 +96,7 @@ public class Evento {
         return recinto;
     }
 
-    public void asignarRecinto(Recinto recinto) {
+    public void setRecinto(Recinto recinto) {
         this.recinto = recinto;
     }
 }
