@@ -3,165 +3,164 @@ package org.example.model;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-
+/**
+ * Entidad central del sistema. Implementa:
+ * - ICompra → permite ser decorada por ServicioAdicional (Decorator)
+ * - State → delega operaciones al estado actual (IEstadoCompra)
+ *
+ * Se construye exclusivamente mediante Compra.Builder para garantizar
+ * que los campos obligatorios siempre estén presentes.
+ */
 public class Compra implements ICompra {
-    private String idCompra;
-    private Usuario usuario;
-    private Evento evento;
-    private LocalDate fechaCreacion;
+
+    private final String idCompra;
+    private final Usuario usuario;
+    private final Evento evento;
+    private final LocalDate fechaCreacion;
+
     private Pago pago;
     private Tarifa tarifa;
 
-    //State
-    private IEstadoCompra iEstadoCompra;
-
-    //enum
+    // State pattern
+    private IEstadoCompra estadoActual;
     private EstadoCompra estadoEnum;
 
-    private LinkedList <Entrada> listEntradas;
-    private double totalBase;
+    private final LinkedList<Entrada> listEntradas;
 
-    public Compra(String idCompra, LocalDate fechaCreacion, IEstadoCompra iEstadoCompra, EstadoCompra estadoEnum, double totalBase) {
-        this.idCompra = idCompra;
-        this.fechaCreacion = fechaCreacion;
+    // Constructor privado — solo accesible desde Builder
+    private Compra(Builder builder) {
+        this.idCompra = builder.idCompra;
+        this.usuario = builder.usuario;
+        this.evento = builder.evento;
+        this.fechaCreacion = builder.fechaCreacion;
+        this.tarifa = builder.tarifa;
+        this.listEntradas = new LinkedList<>();
 
-        // Estado inicial
-        this.iEstadoCompra = new CompraCreada();
+        // Estado inicial siempre es CREADA
+        this.estadoActual = new CompraCreada();
         this.estadoEnum = EstadoCompra.CREADA;
-
-        this.totalBase = totalBase;
-        listEntradas = new LinkedList<>();
     }
 
+    // -------------------------
+    // State — delegación de operaciones
+    // -------------------------
 
-    //Implementación de State
-    public void setEstado(IEstadoCompra iEstadoCompra) {
-        this.iEstadoCompra = iEstadoCompra;
+    public void setEstado(IEstadoCompra nuevoEstado) {
+        this.estadoActual = nuevoEstado;
     }
 
-    public void pagar(){ iEstadoCompra.pagar(this); }
-    public void cancelar(){ iEstadoCompra.cancelar(this); }
-    public void confirmar(){ iEstadoCompra.confirmar(this); }
-    public void reembolsar(){ iEstadoCompra.reembolsar(this); }
+    public void pagar()     { estadoActual.pagar(this); }
+    public void cancelar()  { estadoActual.cancelar(this); }
+    public void confirmar() { estadoActual.confirmar(this); }
+    public void reembolsar(){ estadoActual.reembolsar(this); }
 
+    // -------------------------
+    // Decorator — ICompra
+    // -------------------------
 
-    //Implementación de Decorator
     @Override
     public double getTotal() {
-        double totalBase = 0;
-        for (Entrada entrada : listEntradas) {
-            totalBase += entrada.calcularPrecioFinal();
-        }
-        if (tarifa != null) {
-            return tarifa.calcularTotal(totalBase);
-        }
-        return totalBase;
+        double base = listEntradas.stream()
+                .mapToDouble(Entrada::calcularPrecioFinal)
+                .sum();
+        return (tarifa != null) ? tarifa.calcularTotal(base) : base;
     }
 
     @Override
     public String getDescripcion() {
-
-        String entradas = "";
+        StringBuilder entradas = new StringBuilder();
         if (listEntradas.isEmpty()) {
-            entradas = " - No hay entradas agregadas\n";
-
+            entradas.append(" - No hay entradas agregadas\n");
         } else {
-            for (Entrada entrada : listEntradas) {
-                entradas += " - "
-                        + entrada.getIdEntrada()
-                        + " | Zona: "
-                        + entrada.getZona().getTipoZona()
-                        + " | Precio: $"
-                        + entrada.calcularPrecioFinal()
-                        + "\n";
+            for (Entrada e : listEntradas) {
+                entradas.append(" - ")
+                        .append(e.getIdEntrada())
+                        .append(" | Zona: ").append(e.getZona().getTipoZona())
+                        .append(" | Precio: $").append(e.calcularPrecioFinal())
+                        .append("\n");
             }
         }
 
         return "========== COMPRA ==========\n" +
-                        "ID Compra: " + idCompra + "\n" +
-                        "Usuario: " + usuario.getNombreCompleto() + "\n" +
-                        "Evento: " + evento.getNombre() + "\n" +
-                        "Fecha: " + fechaCreacion + "\n" +
-                        "Estado: " + estadoEnum + "\n\n" +
-
-                        "Entradas:\n" +
-                        entradas + "\n" +
-                        "Total: $" + getTotal() + "\n" +
-                        "============================";
+                "ID Compra: " + idCompra + "\n" +
+                "Usuario: " + usuario.getNombreCompleto() + "\n" +
+                "Evento: " + evento.getNombre() + "\n" +
+                "Fecha: " + fechaCreacion + "\n" +
+                "Estado: " + estadoEnum + "\n\n" +
+                "Entradas:\n" + entradas + "\n" +
+                "Total: $" + getTotal() + "\n" +
+                "============================";
     }
 
-    //Getters y Setters
+    // -------------------------
+    // Getters y Setters
+    // -------------------------
 
+    public String getIdCompra() { return idCompra; }
+    public Usuario getUsuario() { return usuario; }
+    public Evento getEvento() { return evento; }
+    public LocalDate getFechaCreacion() { return fechaCreacion; }
 
-    public String getIdCompra() {
-        return idCompra;
+    public Pago getPago() { return pago; }
+    public void setPago(Pago pago) { this.pago = pago; }
+
+    public Tarifa getTarifa() { return tarifa; }
+    public void setTarifa(Tarifa tarifa) { this.tarifa = tarifa; }
+
+    public EstadoCompra getEstadoEnum() { return estadoEnum; }
+    public void setEstadoEnum(EstadoCompra estadoEnum) { this.estadoEnum = estadoEnum; }
+
+    public LinkedList<Entrada> getListEntradas() { return listEntradas; }
+
+    public void agregarEntrada(Entrada entrada) {
+        listEntradas.add(entrada);
     }
 
-    public void setIdCompra(String idCompra) {
-        this.idCompra = idCompra;
-    }
+    // -------------------------
+    // Builder
+    // -------------------------
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+    /**
+     * Builder para Compra. Garantiza que idCompra, usuario y evento
+     * siempre estén presentes al construir una compra.
+     *
+     * Uso:
+     *   Compra compra = new Compra.Builder("C001", usuario, evento)
+     *       .tarifa(tarifa)
+     *       .build();
+     */
+    public static class Builder {
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+        // Obligatorios
+        private final String idCompra;
+        private final Usuario usuario;
+        private final Evento evento;
 
-    public Evento getEvento() {
-        return evento;
-    }
+        // Opcionales con defaults
+        private LocalDate fechaCreacion = LocalDate.now();
+        private Tarifa tarifa = null;
 
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
+        public Builder(String idCompra, Usuario usuario, Evento evento) {
+            if (idCompra == null || usuario == null || evento == null) {
+                throw new IllegalArgumentException("idCompra, usuario y evento son obligatorios.");
+            }
+            this.idCompra = idCompra;
+            this.usuario = usuario;
+            this.evento = evento;
+        }
 
-    public LocalDate getFechaCreacion() {
-        return fechaCreacion;
-    }
+        public Builder fechaCreacion(LocalDate fecha) {
+            this.fechaCreacion = fecha;
+            return this;
+        }
 
-    public void setFechaCreacion(LocalDate fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
+        public Builder tarifa(Tarifa tarifa) {
+            this.tarifa = tarifa;
+            return this;
+        }
 
-    public Pago getPago() {
-        return pago;
-    }
-
-    public void setPago(Pago pago) {
-        this.pago = pago;
-    }
-
-    public IEstadoCompra getiEstadoCompra() {
-        return iEstadoCompra;
-    }
-
-    public void setiEstadoCompra(IEstadoCompra iEstadoCompra) {
-        this.iEstadoCompra = iEstadoCompra;
-    }
-
-    public EstadoCompra getEstadoEnum() {
-        return estadoEnum;
-    }
-
-    public void setEstadoEnum(EstadoCompra estadoEnum) {
-        this.estadoEnum = estadoEnum;
-    }
-
-    public LinkedList<Entrada> getListEntradas() {
-        return listEntradas;
-    }
-
-    public void setListEntradas(LinkedList<Entrada> listEntradas) {
-        this.listEntradas = listEntradas;
-    }
-
-    public double getTotalBase() {
-        return totalBase;
-    }
-
-    public void setTotalBase(double totalBase) {
-        this.totalBase = totalBase;
+        public Compra build() {
+            return new Compra(this);
+        }
     }
 }
