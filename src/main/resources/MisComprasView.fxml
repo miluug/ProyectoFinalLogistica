@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.example.viewcontroller.MisComprasViewController"
+    style="-fx-background-color: #0D0D0D;"
+    prefWidth="1200" prefHeight="750">
+
+    <!-- ══ TOP BAR ═════════════════════════════════════════ -->
+    <top>
+        <HBox
+            style="-fx-background-color: #111111;
+                   -fx-border-color: #1E1E1E;
+                   -fx-border-width: 0 0 1 0;"
+            alignment="CENTER_LEFT"
+            prefHeight="62"
+            spacing="12">
+
+            <padding><Insets top="0" right="24" bottom="0" left="24"/></padding>
+
+            <Button
+                text="← Eventos"
+                onAction="#volverInicio"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #777;
+                       -fx-font-size: 13px;
+                       -fx-cursor: hand;
+                       -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                       -fx-border-radius: 6; -fx-background-radius: 6;
+                       -fx-padding: 7 16;"/>
+
+            <Label
+                text="EVENTIC"
+                onMouseClicked="#volverInicio"
+                style="-fx-font-family: 'Georgia';
+                       -fx-font-size: 20px;
+                       -fx-font-weight: bold;
+                       -fx-text-fill: #E8C547;
+                       -fx-cursor: hand;
+                       -fx-padding: 0 0 0 8;"/>
+
+            <Label
+                text="Mis Compras"
+                style="-fx-text-fill: #444;
+                       -fx-font-size: 13px;
+                       -fx-padding: 0 0 0 4;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Filtros rápidos -->
+            <Label text="Estado:"
+                   style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+            <ComboBox
+                fx:id="cbFiltroEstado"
+                prefWidth="150"
+                style="-fx-background-color: #1A1A1A;
+                       -fx-border-color: #2A2A2A;
+                       -fx-border-radius: 6; -fx-background-radius: 6;"/>
+
+            <Button
+                text="Filtrar"
+                onAction="#aplicarFiltro"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #888;
+                       -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                       -fx-border-radius: 6; -fx-background-radius: 6;
+                       -fx-padding: 7 14; -fx-cursor: hand;"/>
+
+            <!-- Botón reporte -->
+            <Button
+                text="⬇ Descargar CSV"
+                onAction="#descargarReporte"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #4CAF50;
+                       -fx-border-color: #4CAF5066; -fx-border-width: 1;
+                       -fx-border-radius: 6; -fx-background-radius: 6;
+                       -fx-padding: 7 14; -fx-cursor: hand;
+                       -fx-font-size: 12px;"/>
+
+        </HBox>
+    </top>
+
+    <!-- ══ CENTRO ═══════════════════════════════════════════ -->
+    <center>
+        <VBox style="-fx-background-color: #0D0D0D;">
+
+            <!-- Sub-header -->
+            <VBox
+                style="-fx-background-color: #111111;
+                       -fx-border-color: #1E1E1E;
+                       -fx-border-width: 0 0 1 0;"
+                spacing="6">
+
+                <padding><Insets top="20" right="32" bottom="16" left="32"/></padding>
+
+                <Label
+                    text="Historial de Compras"
+                    style="-fx-font-family: 'Georgia';
+                           -fx-font-size: 24px;
+                           -fx-font-weight: bold;
+                           -fx-text-fill: #EEEEEE;"/>
+
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label
+                        fx:id="lblInfoUsuario"
+                        text=""
+                        style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+                    <Label
+                        fx:id="lblTotalCompras"
+                        text=""
+                        style="-fx-text-fill: #666; -fx-font-size: 12px;"/>
+                </HBox>
+
+            </VBox>
+
+            <!-- Lista de compras -->
+            <ScrollPane
+                fitToWidth="true"
+                VBox.vgrow="ALWAYS"
+                style="-fx-background: #0D0D0D;
+                       -fx-background-color: #0D0D0D;
+                       -fx-border-color: transparent;">
+
+                <VBox
+                    fx:id="panelCompras"
+                    spacing="14"
+                    style="-fx-background-color: #0D0D0D;">
+
+                    <padding><Insets top="24" right="32" bottom="32" left="32"/></padding>
+
+                </VBox>
+
+            </ScrollPane>
+
+        </VBox>
+    </center>
+
+</BorderPane>
