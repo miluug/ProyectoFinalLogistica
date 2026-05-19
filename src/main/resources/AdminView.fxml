@@ -1,14 +1,569 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.viewcontroller.AdminViewController"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="org.example.viewcontroller.AdminViewController"
+        style="-fx-background-color: #0A0A0A;"
+        prefWidth="1280" prefHeight="800">
 
-</AnchorPane>
+    <!-- ══ TOP BAR ═════════════════════════════════════════ -->
+    <top>
+        <HBox
+                style="-fx-background-color: #0F0F0F;
+                   -fx-border-color: #1A1A1A;
+                   -fx-border-width: 0 0 1 0;"
+                alignment="CENTER_LEFT"
+                prefHeight="62"
+                spacing="0">
+
+            <padding><Insets top="0" right="24" bottom="0" left="24"/></padding>
+
+            <Label
+                    text="EVENTIC"
+                    style="-fx-font-family: 'Georgia';
+                       -fx-font-size: 20px;
+                       -fx-font-weight: bold;
+                       -fx-text-fill: #E8C547;"/>
+
+            <Label
+                    text="  ·  Panel Admin"
+                    style="-fx-text-fill: #333;
+                       -fx-font-size: 13px;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Label
+                    fx:id="lblAdminNombre"
+                    text=""
+                    style="-fx-text-fill: #666;
+                       -fx-font-size: 12px;
+                       -fx-padding: 0 16 0 0;"/>
+
+            <Button
+                    text="Cerrar Sesión"
+                    onAction="#cerrarSesion"
+                    style="-fx-background-color: transparent;
+                       -fx-text-fill: #E05555;
+                       -fx-font-size: 12px;
+                       -fx-cursor: hand;
+                       -fx-border-color: #E0555544; -fx-border-width: 1;
+                       -fx-border-radius: 6; -fx-background-radius: 6;
+                       -fx-padding: 7 14;"/>
+
+        </HBox>
+    </top>
+
+    <!-- ══ IZQUIERDA — nav vertical ════════════════════════ -->
+    <left>
+        <VBox
+                prefWidth="220"
+                style="-fx-background-color: #0F0F0F;
+                   -fx-border-color: #1A1A1A;
+                   -fx-border-width: 0 1 0 0;"
+                spacing="4">
+
+            <padding><Insets top="24" right="12" bottom="24" left="12"/></padding>
+
+            <Label
+                    text="NAVEGACIÓN"
+                    style="-fx-text-fill: #333;
+                       -fx-font-size: 9px;
+                       -fx-font-weight: bold;
+                       -fx-padding: 0 0 8 8;"/>
+
+            <Button
+                    fx:id="btnNavUsuarios"
+                    text="👤  Gestionar Usuarios"
+                    maxWidth="Infinity"
+                    onAction="#mostrarUsuarios"
+                    style="-fx-background-color: #E8C54718;
+                       -fx-text-fill: #E8C547;
+                       -fx-font-size: 13px;
+                       -fx-cursor: hand;
+                       -fx-alignment: CENTER_LEFT;
+                       -fx-padding: 11 16;
+                       -fx-background-radius: 6;
+                       -fx-border-color: transparent;"/>
+
+            <Button
+                    fx:id="btnNavEventos"
+                    text="🎭  Gestionar Eventos"
+                    maxWidth="Infinity"
+                    onAction="#mostrarEventos"
+                    style="-fx-background-color: transparent;
+                       -fx-text-fill: #666;
+                       -fx-font-size: 13px;
+                       -fx-cursor: hand;
+                       -fx-alignment: CENTER_LEFT;
+                       -fx-padding: 11 16;
+                       -fx-background-radius: 6;
+                       -fx-border-color: transparent;"/>
+
+            <Button
+                    fx:id="btnNavIncidencias"
+                    text="⚠  Incidencias"
+                    maxWidth="Infinity"
+                    onAction="#mostrarIncidencias"
+                    style="-fx-background-color: transparent;
+                       -fx-text-fill: #666;
+                       -fx-font-size: 13px;
+                       -fx-cursor: hand;
+                       -fx-alignment: CENTER_LEFT;
+                       -fx-padding: 11 16;
+                       -fx-background-radius: 6;
+                       -fx-border-color: transparent;"/>
+
+            <Button
+                    fx:id="btnNavMetricas"
+                    text="📊  Panel de Métricas"
+                    maxWidth="Infinity"
+                    onAction="#mostrarMetricas"
+                    style="-fx-background-color: transparent;
+                       -fx-text-fill: #666;
+                       -fx-font-size: 13px;
+                       -fx-cursor: hand;
+                       -fx-alignment: CENTER_LEFT;
+                       -fx-padding: 11 16;
+                       -fx-background-radius: 6;
+                       -fx-border-color: transparent;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Separator style="-fx-background-color: #1A1A1A;"/>
+
+            <Label
+                    text="REPORTES"
+                    style="-fx-text-fill: #333;
+                       -fx-font-size: 9px;
+                       -fx-font-weight: bold;
+                       -fx-padding: 8 0 4 8;"/>
+
+            <Button
+                    text="⬇  Exportar CSV Ventas"
+                    maxWidth="Infinity"
+                    onAction="#exportarCSV"
+                    style="-fx-background-color: transparent;
+                       -fx-text-fill: #4CAF90;
+                       -fx-font-size: 12px;
+                       -fx-cursor: hand;
+                       -fx-alignment: CENTER_LEFT;
+                       -fx-padding: 9 16;
+                       -fx-background-radius: 6;
+                       -fx-border-color: transparent;"/>
+
+        </VBox>
+    </left>
+
+    <!-- ══ CENTRO — panel intercambiable ═══════════════════ -->
+    <center>
+        <StackPane
+                fx:id="contenedorCentral"
+                style="-fx-background-color: #0A0A0A;">
+
+            <!-- ── Panel: Usuarios ───────────────────────── -->
+            <VBox
+                    fx:id="panelUsuarios"
+                    spacing="0"
+                    style="-fx-background-color: #0A0A0A;">
+
+                <VBox
+                        style="-fx-background-color: #0F0F0F;
+                           -fx-border-color: #1A1A1A;
+                           -fx-border-width: 0 0 1 0;"
+                        spacing="12">
+                    <padding><Insets top="22" right="32" bottom="18" left="32"/></padding>
+
+                    <HBox alignment="CENTER_LEFT" spacing="16">
+                        <Label
+                                text="Gestionar Usuarios"
+                                style="-fx-font-family: 'Georgia';
+                                   -fx-font-size: 22px;
+                                   -fx-font-weight: bold;
+                                   -fx-text-fill: #EEEEEE;"
+                                HBox.hgrow="ALWAYS"/>
+                        <Button
+                                text="+ Nuevo Usuario"
+                                onAction="#nuevoUsuario"
+                                style="-fx-background-color: #E8C547;
+                                   -fx-text-fill: #0D0D0D;
+                                   -fx-font-weight: bold;
+                                   -fx-padding: 9 20;
+                                   -fx-cursor: hand;
+                                   -fx-background-radius: 6;"/>
+                    </HBox>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <TextField
+                                fx:id="txtBuscarUsuario"
+                                promptText="Buscar por nombre o usuario..."
+                                prefWidth="280"
+                                style="-fx-background-color: #1A1A1A;
+                                   -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                                   -fx-border-radius: 6; -fx-background-radius: 6;
+                                   -fx-text-fill: #EEE; -fx-prompt-text-fill: #444;
+                                   -fx-font-size: 13px; -fx-padding: 8 12;"/>
+                        <Button
+                                text="Buscar"
+                                onAction="#buscarUsuario"
+                                style="-fx-background-color: transparent;
+                                   -fx-text-fill: #888;
+                                   -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                                   -fx-border-radius: 6; -fx-background-radius: 6;
+                                   -fx-padding: 8 16; -fx-cursor: hand;"/>
+                    </HBox>
+                </VBox>
+
+                <ScrollPane
+                        fitToWidth="true"
+                        VBox.vgrow="ALWAYS"
+                        style="-fx-background: #0A0A0A;
+                           -fx-background-color: #0A0A0A;
+                           -fx-border-color: transparent;">
+                    <VBox
+                            fx:id="listaUsuarios"
+                            spacing="10"
+                            style="-fx-background-color: #0A0A0A;">
+                        <padding><Insets top="20" right="32" bottom="32" left="32"/></padding>
+                    </VBox>
+                </ScrollPane>
+
+            </VBox>
+
+            <!-- ── Panel: Eventos ────────────────────────── -->
+            <VBox
+                    fx:id="panelEventos"
+                    spacing="0"
+                    visible="false"
+                    managed="false"
+                    style="-fx-background-color: #0A0A0A;">
+
+                <VBox
+                        style="-fx-background-color: #0F0F0F;
+                           -fx-border-color: #1A1A1A;
+                           -fx-border-width: 0 0 1 0;"
+                        spacing="12">
+                    <padding><Insets top="22" right="32" bottom="18" left="32"/></padding>
+
+                    <HBox alignment="CENTER_LEFT" spacing="16">
+                        <Label
+                                text="Gestionar Eventos"
+                                style="-fx-font-family: 'Georgia';
+                                   -fx-font-size: 22px;
+                                   -fx-font-weight: bold;
+                                   -fx-text-fill: #EEEEEE;"
+                                HBox.hgrow="ALWAYS"/>
+                        <Button
+                                text="+ Nuevo Evento"
+                                onAction="#nuevoEvento"
+                                style="-fx-background-color: #E8C547;
+                                   -fx-text-fill: #0D0D0D;
+                                   -fx-font-weight: bold;
+                                   -fx-padding: 9 20;
+                                   -fx-cursor: hand;
+                                   -fx-background-radius: 6;"/>
+                    </HBox>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <ComboBox
+                                fx:id="cbFiltroEstadoEvento"
+                                prefWidth="180"
+                                style="-fx-background-color: #1A1A1A;
+                                   -fx-border-color: #2A2A2A;
+                                   -fx-border-radius: 6; -fx-background-radius: 6;"/>
+                        <Button
+                                text="Filtrar"
+                                onAction="#filtrarEventos"
+                                style="-fx-background-color: transparent;
+                                   -fx-text-fill: #888;
+                                   -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                                   -fx-border-radius: 6; -fx-background-radius: 6;
+                                   -fx-padding: 8 16; -fx-cursor: hand;"/>
+                    </HBox>
+                </VBox>
+
+                <ScrollPane
+                        fitToWidth="true"
+                        VBox.vgrow="ALWAYS"
+                        style="-fx-background: #0A0A0A;
+                           -fx-background-color: #0A0A0A;
+                           -fx-border-color: transparent;">
+                    <VBox
+                            fx:id="listaEventos"
+                            spacing="10"
+                            style="-fx-background-color: #0A0A0A;">
+                        <padding><Insets top="20" right="32" bottom="32" left="32"/></padding>
+                    </VBox>
+                </ScrollPane>
+
+            </VBox>
+
+            <!-- ── Panel: Incidencias ─────────────────────── -->
+            <VBox
+                    fx:id="panelIncidencias"
+                    spacing="0"
+                    visible="false"
+                    managed="false"
+                    style="-fx-background-color: #0A0A0A;">
+
+                <VBox
+                        style="-fx-background-color: #0F0F0F;
+                           -fx-border-color: #1A1A1A;
+                           -fx-border-width: 0 0 1 0;"
+                        spacing="12">
+                    <padding><Insets top="22" right="32" bottom="18" left="32"/></padding>
+
+                    <Label
+                            text="Registrar Incidencias"
+                            style="-fx-font-family: 'Georgia';
+                               -fx-font-size: 22px;
+                               -fx-font-weight: bold;
+                               -fx-text-fill: #EEEEEE;"/>
+                </VBox>
+
+                <HBox
+                        spacing="24"
+                        style="-fx-background-color: #0A0A0A;"
+                        VBox.vgrow="ALWAYS">
+
+                    <padding><Insets top="24" right="32" bottom="32" left="32"/></padding>
+
+                    <!-- Formulario nueva incidencia -->
+                    <VBox
+                            spacing="16"
+                            prefWidth="380"
+                            style="-fx-background-color: #161616;
+                               -fx-border-color: #222; -fx-border-width: 1;
+                               -fx-border-radius: 10; -fx-background-radius: 10;">
+
+                        <padding><Insets top="22" right="24" bottom="24" left="24"/></padding>
+
+                        <Label
+                                text="Nueva Incidencia"
+                                style="-fx-font-family: 'Georgia';
+                                   -fx-font-size: 16px;
+                                   -fx-font-weight: bold;
+                                   -fx-text-fill: #EEE;"/>
+
+                        <Separator style="-fx-background-color: #222;"/>
+
+                        <VBox spacing="6">
+                            <Label text="TIPO"
+                                   style="-fx-text-fill: #444; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                            <ComboBox
+                                    fx:id="cbTipoIncidencia"
+                                    maxWidth="Infinity"
+                                    style="-fx-background-color: #1A1A1A;
+                                       -fx-border-color: #2A2A2A;
+                                       -fx-border-radius: 6; -fx-background-radius: 6;"/>
+                        </VBox>
+
+                        <VBox spacing="6">
+                            <Label text="ENTIDAD AFECTADA"
+                                   style="-fx-text-fill: #444; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                            <ComboBox
+                                    fx:id="cbEntidadAfectada"
+                                    maxWidth="Infinity"
+                                    style="-fx-background-color: #1A1A1A;
+                                       -fx-border-color: #2A2A2A;
+                                       -fx-border-radius: 6; -fx-background-radius: 6;"/>
+                        </VBox>
+
+                        <VBox spacing="6">
+                            <Label text="DESCRIPCIÓN"
+                                   style="-fx-text-fill: #444; -fx-font-size: 10px; -fx-font-weight: bold;"/>
+                            <TextArea
+                                    fx:id="txtDescripcionIncidencia"
+                                    promptText="Describe la incidencia..."
+                                    prefRowCount="4"
+                                    wrapText="true"
+                                    style="-fx-control-inner-background: #1A1A1A;
+                                       -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                                       -fx-border-radius: 6; -fx-background-radius: 6;
+                                       -fx-text-fill: #EEE; -fx-prompt-text-fill: #444;
+                                       -fx-font-size: 13px;"/>
+                        </VBox>
+
+                        <Label
+                                fx:id="lblMensajeIncidencia"
+                                text=""
+                                visible="false"
+                                managed="false"
+                                wrapText="true"
+                                style="-fx-font-size: 12px;"/>
+
+                        <Button
+                                text="Registrar Incidencia"
+                                maxWidth="Infinity"
+                                onAction="#registrarIncidencia"
+                                style="-fx-background-color: #E8C547;
+                                   -fx-text-fill: #0D0D0D;
+                                   -fx-font-weight: bold;
+                                   -fx-padding: 12 0;
+                                   -fx-cursor: hand;
+                                   -fx-background-radius: 6;"/>
+
+                    </VBox>
+
+                    <!-- Lista de incidencias registradas -->
+                    <VBox spacing="12" HBox.hgrow="ALWAYS">
+
+                        <Label
+                                text="Incidencias Registradas"
+                                style="-fx-font-family: 'Georgia';
+                                   -fx-font-size: 16px;
+                                   -fx-font-weight: bold;
+                                   -fx-text-fill: #EEE;"/>
+
+                        <ScrollPane
+                                fitToWidth="true"
+                                VBox.vgrow="ALWAYS"
+                                style="-fx-background: #0A0A0A;
+                                   -fx-background-color: #0A0A0A;
+                                   -fx-border-color: transparent;">
+                            <VBox
+                                    fx:id="listaIncidencias"
+                                    spacing="10"
+                                    style="-fx-background-color: #0A0A0A;"/>
+                        </ScrollPane>
+
+                    </VBox>
+
+                </HBox>
+
+            </VBox>
+
+            <!-- ── Panel: Métricas ───────────────────────── -->
+            <VBox
+                    fx:id="panelMetricas"
+                    spacing="0"
+                    visible="false"
+                    managed="false"
+                    style="-fx-background-color: #0A0A0A;">
+
+                <VBox
+                        style="-fx-background-color: #0F0F0F;
+                           -fx-border-color: #1A1A1A;
+                           -fx-border-width: 0 0 1 0;">
+                    <padding><Insets top="22" right="32" bottom="18" left="32"/></padding>
+                    <Label
+                            text="Panel de Métricas"
+                            style="-fx-font-family: 'Georgia';
+                               -fx-font-size: 22px;
+                               -fx-font-weight: bold;
+                               -fx-text-fill: #EEEEEE;"/>
+                </VBox>
+
+                <ScrollPane
+                        fitToWidth="true"
+                        VBox.vgrow="ALWAYS"
+                        style="-fx-background: #0A0A0A;
+                           -fx-background-color: #0A0A0A;
+                           -fx-border-color: transparent;">
+
+                    <VBox
+                            spacing="24"
+                            style="-fx-background-color: #0A0A0A;">
+
+                        <padding><Insets top="24" right="32" bottom="32" left="32"/></padding>
+
+                        <!-- Fila de KPI cards -->
+                        <HBox
+                                fx:id="filaKPIs"
+                                spacing="16"/>
+
+                        <!-- Fila de gráficas -->
+                        <HBox spacing="20">
+
+                            <!-- Gráfica de barras: ventas por evento -->
+                            <VBox
+                                    spacing="10"
+                                    HBox.hgrow="ALWAYS"
+                                    style="-fx-background-color: #161616;
+                                       -fx-border-color: #222; -fx-border-width: 1;
+                                       -fx-border-radius: 10; -fx-background-radius: 10;">
+                                <padding><Insets top="18" right="20" bottom="20" left="20"/></padding>
+                                <Label
+                                        text="Ventas por Evento"
+                                        style="-fx-text-fill: #AAA; -fx-font-size: 13px;
+                                           -fx-font-weight: bold;"/>
+                                <BarChart
+                                        fx:id="graficaVentas"
+                                        prefHeight="240"
+                                        style="-fx-background-color: transparent;">
+                                    <xAxis>
+                                        <CategoryAxis
+                                                label=""
+                                                style="-fx-tick-label-fill: #555;"/>
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis
+                                                label="Compras"
+                                                style="-fx-tick-label-fill: #555;"/>
+                                    </yAxis>
+                                </BarChart>
+                            </VBox>
+
+                            <!-- Gráfica de pie: estados de compras -->
+                            <VBox
+                                    spacing="10"
+                                    prefWidth="320"
+                                    style="-fx-background-color: #161616;
+                                       -fx-border-color: #222; -fx-border-width: 1;
+                                       -fx-border-radius: 10; -fx-background-radius: 10;">
+                                <padding><Insets top="18" right="20" bottom="20" left="20"/></padding>
+                                <Label
+                                        text="Estado de Compras"
+                                        style="-fx-text-fill: #AAA; -fx-font-size: 13px;
+                                           -fx-font-weight: bold;"/>
+                                <PieChart
+                                        fx:id="graficaEstados"
+                                        prefHeight="240"
+                                        labelsVisible="true"
+                                        style="-fx-background-color: transparent;"/>
+                            </VBox>
+
+                        </HBox>
+
+                        <!-- Gráfica de líneas: ingresos por categoría -->
+                        <VBox
+                                spacing="10"
+                                style="-fx-background-color: #161616;
+                                   -fx-border-color: #222; -fx-border-width: 1;
+                                   -fx-border-radius: 10; -fx-background-radius: 10;">
+                            <padding><Insets top="18" right="20" bottom="20" left="20"/></padding>
+                            <Label
+                                    text="Ingresos por Categoría de Evento"
+                                    style="-fx-text-fill: #AAA; -fx-font-size: 13px;
+                                       -fx-font-weight: bold;"/>
+                            <LineChart
+                                    fx:id="graficaIngresos"
+                                    prefHeight="220"
+                                    style="-fx-background-color: transparent;">
+                                <xAxis>
+                                    <CategoryAxis
+                                            label="Categoría"
+                                            style="-fx-tick-label-fill: #555;"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis
+                                            label="Ingresos ($)"
+                                            style="-fx-tick-label-fill: #555;"/>
+                                </yAxis>
+                            </LineChart>
+                        </VBox>
+
+                    </VBox>
+                </ScrollPane>
+
+            </VBox>
+
+        </StackPane>
+    </center>
+
+</BorderPane>
