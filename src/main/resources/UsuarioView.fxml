@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.example.viewcontroller.UsuarioViewController"
+    style="-fx-background-color: #0D0D0D;"
+    prefWidth="1200" prefHeight="750">
+
+    <!-- ══ TOP BAR ═════════════════════════════════════════ -->
+    <top>
+        <HBox
+            style="-fx-background-color: #111111;
+                   -fx-border-color: #1E1E1E;
+                   -fx-border-width: 0 0 1 0;"
+            alignment="CENTER_LEFT"
+            prefHeight="62"
+            spacing="0">
+
+            <padding><Insets top="0" right="24" bottom="0" left="24"/></padding>
+
+            <!-- Título clickeable → recarga pantalla -->
+            <Label
+                fx:id="lblTitulo"
+                text="EVENTIC"
+                onMouseClicked="#recargarPantalla"
+                style="-fx-font-family: 'Georgia';
+                       -fx-font-size: 22px;
+                       -fx-font-weight: bold;
+                       -fx-text-fill: #E8C547;
+                       -fx-cursor: hand;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Nombre usuario -->
+            <Label
+                fx:id="lblNombre"
+                text=""
+                style="-fx-text-fill: #AAAAAA;
+                       -fx-font-size: 13px;
+                       -fx-font-family: 'Georgia';
+                       -fx-padding: 0 6 0 0;"/>
+
+            <!-- Separador visual -->
+            <Label
+                text="|"
+                style="-fx-text-fill: #333; -fx-padding: 0 10;"/>
+
+            <!-- Botones top -->
+            <Button
+                text="Mi Perfil"
+                onAction="#abrirPerfil"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #777;
+                       -fx-font-size: 13px;
+                       -fx-cursor: hand;
+                       -fx-padding: 8 14;
+                       -fx-border-color: transparent;"/>
+
+            <Button
+                text="Mis Compras"
+                onAction="#abrirMisCompras"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #777;
+                       -fx-font-size: 13px;
+                       -fx-cursor: hand;
+                       -fx-padding: 8 14;
+                       -fx-border-color: transparent;"/>
+
+            <Button
+                text="Cerrar Sesión"
+                onAction="#cerrarSesion"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #E05555;
+                       -fx-font-size: 13px;
+                       -fx-cursor: hand;
+                       -fx-padding: 8 14;
+                       -fx-border-color: transparent;"/>
+
+        </HBox>
+    </top>
+
+    <!-- ══ CENTRO ═══════════════════════════════════════════ -->
+    <center>
+        <VBox style="-fx-background-color: #0D0D0D;">
+
+            <!-- Sub-header: título + filtros -->
+            <VBox
+                style="-fx-background-color: #111111;
+                       -fx-border-color: #1E1E1E;
+                       -fx-border-width: 0 0 1 0;"
+                spacing="14">
+
+                <padding><Insets top="22" right="32" bottom="18" left="32"/></padding>
+
+                <Label
+                    text="Eventos Disponibles"
+                    style="-fx-font-family: 'Georgia';
+                           -fx-font-size: 26px;
+                           -fx-font-weight: bold;
+                           -fx-text-fill: #EEEEEE;"/>
+
+                <!-- Fila de filtros -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+
+                    <Label text="Buscar:"
+                           style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+                    <TextField
+                        fx:id="txtBuscar"
+                        promptText="Nombre del evento..."
+                        prefWidth="220"
+                        style="-fx-background-color: #1A1A1A;
+                               -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                               -fx-border-radius: 6; -fx-background-radius: 6;
+                               -fx-text-fill: #EEE; -fx-prompt-text-fill: #444;
+                               -fx-font-size: 13px; -fx-padding: 7 12;"/>
+
+                    <Label text="Categoría:"
+                           style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+                    <ComboBox
+                        fx:id="cbCategoria"
+                        prefWidth="160"
+                        style="-fx-background-color: #1A1A1A;
+                               -fx-border-color: #2A2A2A;
+                               -fx-border-radius: 6; -fx-background-radius: 6;"/>
+
+                    <Label text="Ciudad:"
+                           style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+                    <ComboBox
+                        fx:id="cbCiudad"
+                        prefWidth="170"
+                        style="-fx-background-color: #1A1A1A;
+                               -fx-border-color: #2A2A2A;
+                               -fx-border-radius: 6; -fx-background-radius: 6;"/>
+
+                    <Button
+                        text="Filtrar"
+                        onAction="#aplicarFiltros"
+                        style="-fx-background-color: #E8C547;
+                               -fx-text-fill: #0D0D0D;
+                               -fx-font-weight: bold;
+                               -fx-padding: 8 20;
+                               -fx-cursor: hand;
+                               -fx-background-radius: 6;"/>
+
+                    <Button
+                        text="Limpiar"
+                        onAction="#limpiarFiltros"
+                        style="-fx-background-color: transparent;
+                               -fx-text-fill: #666;
+                               -fx-border-color: #333; -fx-border-width: 1;
+                               -fx-border-radius: 6; -fx-background-radius: 6;
+                               -fx-padding: 8 16;
+                               -fx-cursor: hand;"/>
+
+                </HBox>
+            </VBox>
+
+            <!-- Panel de tarjetas de eventos -->
+            <ScrollPane
+                fitToWidth="true"
+                VBox.vgrow="ALWAYS"
+                style="-fx-background: #0D0D0D;
+                       -fx-background-color: #0D0D0D;
+                       -fx-border-color: transparent;">
+
+                <FlowPane
+                    fx:id="panelEventos"
+                    hgap="20"
+                    vgap="20"
+                    style="-fx-background-color: #0D0D0D;">
+
+                    <padding><Insets top="24" right="32" bottom="32" left="32"/></padding>
+
+                </FlowPane>
+
+            </ScrollPane>
+
+        </VBox>
+    </center>
+
+</BorderPane>
