@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane
+    xmlns="http://javafx.com/javafx/21"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="org.example.viewcontroller.PerfilViewController"
+    style="-fx-background-color: #0D0D0D;"
+    prefWidth="1000" prefHeight="680">
+
+    <!-- ══ TOP BAR ═════════════════════════════════════════ -->
+    <top>
+        <HBox
+            style="-fx-background-color: #111111;
+                   -fx-border-color: #1E1E1E;
+                   -fx-border-width: 0 0 1 0;"
+            alignment="CENTER_LEFT"
+            prefHeight="62"
+            spacing="12">
+
+            <padding><Insets top="0" right="24" bottom="0" left="24"/></padding>
+
+            <Button
+                text="← Volver"
+                onAction="#volver"
+                style="-fx-background-color: transparent;
+                       -fx-text-fill: #777;
+                       -fx-font-size: 13px;
+                       -fx-cursor: hand;
+                       -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                       -fx-border-radius: 6; -fx-background-radius: 6;
+                       -fx-padding: 7 16;"/>
+
+            <Label
+                text="EVENTIC"
+                onMouseClicked="#volver"
+                style="-fx-font-family: 'Georgia';
+                       -fx-font-size: 20px;
+                       -fx-font-weight: bold;
+                       -fx-text-fill: #E8C547;
+                       -fx-cursor: hand;
+                       -fx-padding: 0 0 0 8;"/>
+
+            <Label
+                text="Mi Perfil"
+                style="-fx-text-fill: #444;
+                       -fx-font-size: 13px;
+                       -fx-padding: 0 0 0 4;"/>
+
+        </HBox>
+    </top>
+
+    <!-- ══ CENTRO ═══════════════════════════════════════════ -->
+    <center>
+        <ScrollPane
+            fitToWidth="true"
+            style="-fx-background: #0D0D0D;
+                   -fx-background-color: #0D0D0D;
+                   -fx-border-color: transparent;">
+
+            <HBox
+                spacing="24"
+                style="-fx-background-color: #0D0D0D;">
+
+                <padding><Insets top="36" right="40" bottom="40" left="40"/></padding>
+
+                <!-- ── Columna izquierda: avatar + info fija ─ -->
+                <VBox
+                    spacing="16"
+                    prefWidth="280"
+                    minWidth="240"
+                    alignment="TOP_CENTER">
+
+                    <!-- Avatar simulado -->
+                    <StackPane
+                        prefWidth="100" prefHeight="100"
+                        maxWidth="100" maxHeight="100"
+                        style="-fx-background-color: #E8C54722;
+                               -fx-border-color: #E8C547;
+                               -fx-border-width: 2;
+                               -fx-border-radius: 50;
+                               -fx-background-radius: 50;">
+
+                        <Label
+                            fx:id="lblInicialAvatar"
+                            text=""
+                            style="-fx-font-family: 'Georgia';
+                                   -fx-font-size: 38px;
+                                   -fx-font-weight: bold;
+                                   -fx-text-fill: #E8C547;"/>
+
+                    </StackPane>
+
+                    <!-- Nombre completo -->
+                    <Label
+                        fx:id="lblNombreAvatar"
+                        text=""
+                        wrapText="true"
+                        style="-fx-font-family: 'Georgia';
+                               -fx-font-size: 17px;
+                               -fx-font-weight: bold;
+                               -fx-text-fill: #EEEEEE;"
+                        alignment="CENTER"/>
+
+                    <!-- Username -->
+                    <Label
+                        fx:id="lblUsernameAvatar"
+                        text=""
+                        style="-fx-text-fill: #555;
+                               -fx-font-size: 13px;"/>
+
+                    <Separator style="-fx-background-color: #1E1E1E;"/>
+
+                    <!-- Stats rápidos -->
+                    <VBox spacing="10">
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="🎟"  style="-fx-font-size: 14px;"/>
+                            <Label
+                                fx:id="lblStatCompras"
+                                text="0 compras realizadas"
+                                style="-fx-text-fill: #777; -fx-font-size: 12px;"/>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="✅" style="-fx-font-size: 14px;"/>
+                            <Label
+                                fx:id="lblStatConfirmadas"
+                                text="0 confirmadas"
+                                style="-fx-text-fill: #777; -fx-font-size: 12px;"/>
+                        </HBox>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="❌" style="-fx-font-size: 14px;"/>
+                            <Label
+                                fx:id="lblStatCanceladas"
+                                text="0 canceladas"
+                                style="-fx-text-fill: #777; -fx-font-size: 12px;"/>
+                        </HBox>
+
+                    </VBox>
+
+                    <Separator style="-fx-background-color: #1E1E1E;"/>
+
+                    <!-- Botón ir a mis compras -->
+                    <Button
+                        text="Ver Mis Compras"
+                        maxWidth="Infinity"
+                        onAction="#irMisCompras"
+                        style="-fx-background-color: transparent;
+                               -fx-text-fill: #E8C547;
+                               -fx-border-color: #E8C54766; -fx-border-width: 1;
+                               -fx-border-radius: 6; -fx-background-radius: 6;
+                               -fx-padding: 10 0; -fx-cursor: hand;
+                               -fx-font-size: 13px;"/>
+
+                </VBox>
+
+                <!-- ── Columna derecha: formulario edición ── -->
+                <VBox
+                    spacing="0"
+                    HBox.hgrow="ALWAYS">
+
+                    <!-- Sección: Datos personales -->
+                    <VBox
+                        spacing="18"
+                        style="-fx-background-color: #161616;
+                               -fx-border-color: #222222; -fx-border-width: 1;
+                               -fx-border-radius: 10; -fx-background-radius: 10;">
+
+                        <padding><Insets top="24" right="28" bottom="28" left="28"/></padding>
+
+                        <Label
+                            text="Datos Personales"
+                            style="-fx-font-family: 'Georgia';
+                                   -fx-font-size: 18px;
+                                   -fx-font-weight: bold;
+                                   -fx-text-fill: #EEEEEE;"/>
+
+                        <Separator style="-fx-background-color: #222;"/>
+
+                        <!-- Nombre completo -->
+                        <VBox spacing="6">
+                            <Label text="NOMBRE COMPLETO"
+                                   style="-fx-text-fill: #444; -fx-font-size: 10px;
+                                          -fx-font-weight: bold;"/>
+                            <TextField
+                                fx:id="txtNombre"
+                                style="-fx-background-color: #1A1A1A;
+                                       -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                                       -fx-border-radius: 6; -fx-background-radius: 6;
+                                       -fx-text-fill: #EEE; -fx-prompt-text-fill: #444;
+                                       -fx-font-size: 13px; -fx-padding: 10 14;"/>
+                        </VBox>
+
+                        <!-- Correo -->
+                        <VBox spacing="6">
+                            <Label text="CORREO ELECTRÓNICO"
+                                   style="-fx-text-fill: #444; -fx-font-size: 10px;
+                                          -fx-font-weight: bold;"/>
+                            <TextField
+                                fx:id="txtCorreo"
+                                style="-fx-background-color: #1A1A1A;
+                                       -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                                       -fx-border-radius: 6; -fx-background-radius: 6;
+                                       -fx-text-fill: #EEE; -fx-prompt-text-fill: #444;
+                                       -fx-font-size: 13px; -fx-padding: 10 14;"/>
+                        </VBox>
+
+                        <!-- Teléfono -->
+                        <VBox spacing="6">
+                            <Label text="TELÉFONO"
+                                   style="-fx-text-fill: #444; -fx-font-size: 10px;
+                                          -fx-font-weight: bold;"/>
+                            <TextField
+                                fx:id="txtTelefono"
+                                style="-fx-background-color: #1A1A1A;
+                                       -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                                       -fx-border-radius: 6; -fx-background-radius: 6;
+                                       -fx-text-fill: #EEE; -fx-prompt-text-fill: #444;
+                                       -fx-font-size: 13px; -fx-padding: 10 14;"/>
+                        </VBox>
+
+                        <!-- Mensaje éxito / error datos -->
+                        <Label
+                            fx:id="lblMensajeDatos"
+                            text=""
+                            visible="false"
+                            managed="false"
+                            style="-fx-font-size: 12px;"/>
+
+                        <Button
+                            text="Guardar Cambios"
+                            onAction="#guardarDatos"
+                            style="-fx-background-color: #E8C547;
+                                   -fx-text-fill: #0D0D0D;
+                                   -fx-font-weight: bold;
+                                   -fx-font-size: 13px;
+                                   -fx-padding: 11 24;
+                                   -fx-cursor: hand;
+                                   -fx-background-radius: 6;"/>
+
+                    </VBox>
+
+                    <Region prefHeight="20"/>
+
+                    <!-- Sección: Cambiar contraseña -->
+                    <VBox
+                        spacing="18"
+                        style="-fx-background-color: #161616;
+                               -fx-border-color: #222222; -fx-border-width: 1;
+                               -fx-border-radius: 10; -fx-background-radius: 10;">
+
+                        <padding><Insets top="24" right="28" bottom="28" left="28"/></padding>
+
+                        <Label
+                            text="Cambiar Contraseña"
+                            style="-fx-font-family: 'Georgia';
+                                   -fx-font-size: 18px;
+                                   -fx-font-weight: bold;
+                                   -fx-text-fill: #EEEEEE;"/>
+
+                        <Separator style="-fx-background-color: #222;"/>
+
+                        <!-- Contraseña actual -->
+                        <VBox spacing="6">
+                            <Label text="CONTRASEÑA ACTUAL"
+                                   style="-fx-text-fill: #444; -fx-font-size: 10px;
+                                          -fx-font-weight: bold;"/>
+                            <PasswordField
+                                fx:id="txtContrasenaActual"
+                                promptText="Tu contraseña actual"
+                                style="-fx-background-color: #1A1A1A;
+                                       -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                                       -fx-border-radius: 6; -fx-background-radius: 6;
+                                       -fx-text-fill: #EEE; -fx-prompt-text-fill: #444;
+                                       -fx-font-size: 13px; -fx-padding: 10 14;"/>
+                        </VBox>
+
+                        <!-- Nueva contraseña -->
+                        <VBox spacing="6">
+                            <Label text="NUEVA CONTRASEÑA"
+                                   style="-fx-text-fill: #444; -fx-font-size: 10px;
+                                          -fx-font-weight: bold;"/>
+                            <PasswordField
+                                fx:id="txtNuevaContrasena"
+                                promptText="Mínimo 4 caracteres"
+                                style="-fx-background-color: #1A1A1A;
+                                       -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                                       -fx-border-radius: 6; -fx-background-radius: 6;
+                                       -fx-text-fill: #EEE; -fx-prompt-text-fill: #444;
+                                       -fx-font-size: 13px; -fx-padding: 10 14;"/>
+                        </VBox>
+
+                        <!-- Confirmar nueva -->
+                        <VBox spacing="6">
+                            <Label text="CONFIRMAR NUEVA CONTRASEÑA"
+                                   style="-fx-text-fill: #444; -fx-font-size: 10px;
+                                          -fx-font-weight: bold;"/>
+                            <PasswordField
+                                fx:id="txtConfirmarContrasena"
+                                promptText="Repite la nueva contraseña"
+                                style="-fx-background-color: #1A1A1A;
+                                       -fx-border-color: #2A2A2A; -fx-border-width: 1;
+                                       -fx-border-radius: 6; -fx-background-radius: 6;
+                                       -fx-text-fill: #EEE; -fx-prompt-text-fill: #444;
+                                       -fx-font-size: 13px; -fx-padding: 10 14;"/>
+                        </VBox>
+
+                        <!-- Mensaje éxito / error contraseña -->
+                        <Label
+                            fx:id="lblMensajeContrasena"
+                            text=""
+                            visible="false"
+                            managed="false"
+                            style="-fx-font-size: 12px;"/>
+
+                        <Button
+                            text="Actualizar Contraseña"
+                            onAction="#cambiarContrasena"
+                            style="-fx-background-color: transparent;
+                                   -fx-text-fill: #E8C547;
+                                   -fx-border-color: #E8C54766; -fx-border-width: 1;
+                                   -fx-border-radius: 6; -fx-background-radius: 6;
+                                   -fx-font-size: 13px; -fx-padding: 11 24;
+                                   -fx-cursor: hand;"/>
+
+                    </VBox>
+
+                </VBox>
+
+            </HBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
